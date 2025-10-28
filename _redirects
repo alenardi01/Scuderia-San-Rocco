@@ -1,1 +1,6 @@
-/*   https://scuderiasanrocco.com/:splat   301!
+# Forza solo da HTTP a HTTPS (no loop)
+http://scuderiasanrocco.com/*      https://scuderiasanrocco.com/:splat    301!
+http://www.scuderiasanrocco.com/*  https://scuderiasanrocco.com/:splat    301!
+
+# Sposta www -> root anche se già in HTTPS
+https://www.scuderiasanrocco.com/* https://scuderiasanrocco.com/:splat    301!
