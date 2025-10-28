@@ -95,19 +95,71 @@
 
 <section id="prenota" class="section"><div class="container">
   <h2>Prenota</h2>
-  <form name="prenotazioni" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="prenotazioni">
-    <p style="display:none"><label>Non compilare: <input name="bot-field"></label></p>
-    <p><label>Nome <input name="name" required></label></p>
-    <p><label>Email <input type="email" name="email" required></label></p>
-    <p><label>Data <input type="date" name="date" required min="2026-04-01"></label></p>
-    <p><label>Partecipanti <select name="people"><option>1</option><option>2</option><option></select></label></p>
-    <p><label>Esperienza <select name="experience"><option>Chianti Ride</option><option>Vigne & Borghi</option><option>Golden Hour & Degustazione</option></select></label></p>
-    <p><label>Note <textarea name="message" rows="3"></textarea></label></p>
-    <p><button type="submit">Invia richiesta</button> <a class="cta" href="https://wa.me/393894498234" target="_blank" rel="noopener">WhatsApp</a> <a class="cta" href="mailto:scuderiasanrocco@gmail.com">Email</a></p>
-    <p class="small">Con l’invio richiedi informazioni/preventivo. Nessun addebito.</p>
-  </form>
-</div></section>
+ <div class="card">
+ <h3>Prenota</h3>
+ <p class="small">Prenotazioni aperte dal 1° aprile 2026</p>
+
+ <p><label>Nome
+   <input id="nome" type="text" placeholder="Il tuo nome">
+ </label></p>
+
+ <p><label>Data
+   <input id="data" type="date" min="2026-04-01">
+ </label></p>
+
+ <p><label>Fascia oraria
+   <select id="slot">
+     <option value="">Seleziona</option>
+     <optgroup label="Mattina">
+       <option>7:00–8:00</option>
+       <option>8:00–9:00</option>
+       <option>7:00–9:00</option>
+       <option>9:00–10:00</option>
+       <option>9:00–11:00</option>
+     </optgroup>
+     <optgroup label="Tramonto">
+       <option>17:00–18:00</option>
+       <option>18:00–19:00</option>
+       <option>17:00–19:00</option>
+     </optgroup>
+   </select>
+ </label></p>
+
+ <p><label>Note
+   <textarea id="msg" rows="3" placeholder="Es. Numero persone / livello ecc..."></textarea>
+ </label></p>
+
+ <div class="btns">
+   <a id="wa" class="btn" href="#" target="_blank" rel="noopener">WhatsApp</a>
+   <a id="mail" class="btn primary" href="#">Invia email</a>
+ </div>
+</div>
+
+<script>
+(function(){
+ const tel = "393894498234"; // WhatsApp senza +
+ function text() {
+   const n = document.getElementById('nome').value||'';
+   const d = document.getElementById('data').value||'';
+   const s = document.getElementById('slot').value||'';
+   const m = document.getElementById('msg').value||'';
+   return `Prenotazione Scuderia San Rocco%0A`+
+          `Nome: ${encodeURIComponent(n)}%0A`+
+          `Data: ${encodeURIComponent(d)}%0A`+
+          `Fascia: ${encodeURIComponent(s)}%0A`+
+          `Note: ${encodeURIComponent(m)}`;
+ }
+ document.getElementById('wa').onclick = function(e){
+   e.preventDefault();
+   window.open(`https://wa.me/${tel}?text=${text()}`, '_blank');
+ };
+ document.getElementById('mail').onclick = function(e){
+   e.preventDefault();
+   const to = 'scuderiasanrocco@gmail.com';
+   window.location.href = `mailto:${to}?subject=Prenotazione Scuderia San Rocco&body=${text()}`;
+ };
+})();
+</script>
 
 <footer><div class="container">
   <div>© 2025 Scuderia San Rocco — Tavarnelle Val di Pesa (FI)</div>
