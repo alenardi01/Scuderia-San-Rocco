@@ -137,27 +137,33 @@
 
 <script>
 (function(){
- const tel = "393894498234"; // WhatsApp senza +
+ // Tuo numero WhatsApp in formato internazionale, senza + e senza spazi
+ const tel = "393894498234";
+
  function text() {
-   const n = document.getElementById('nome').value||'';
-   const d = document.getElementById('data').value||'';
-   const s = document.getElementById('slot').value||'';
-   const m = document.getElementById('msg').value||'';
-   return `Prenotazione Scuderia San Rocco%0A`+
-          `Nome: ${encodeURIComponent(n)}%0A`+
-          `Data: ${encodeURIComponent(d)}%0A`+
-          `Fascia: ${encodeURIComponent(s)}%0A`+
-          `Note: ${encodeURIComponent(m)}`;
+   const n = document.getElementById('nome')?.value || '';
+   const d = document.getElementById('data')?.value || '';
+   const s = document.getElementById('slot')?.value || '';
+   const m = document.getElementById('msg')?.value  || '';
+   return (
+     "Prenotazione Scuderia San Rocco%0A" +
+     "Nome: " + encodeURIComponent(n) + "%0A" +
+     "Data: " + encodeURIComponent(d) + "%0A" +
+     "Fascia: " + encodeURIComponent(s) + "%0A" +
+     "Note: " + encodeURIComponent(m)
+   );
  }
- document.getElementById('wa').onclick = function(e){
+
+ document.getElementById('wa')?.addEventListener('click', function(e){
    e.preventDefault();
    window.open(`https://wa.me/${tel}?text=${text()}`, '_blank');
- };
- document.getElementById('mail').onclick = function(e){
-   e.preventDefault();
-   const to = 'scuderiasanrocco@gmail.com';
-   window.location.href = `mailto:${to}?subject=Prenotazione Scuderia San Rocco&body=${text()}`;
- };
+ });
+
+ // opzionale: se vuoi lasciare anche “invia email” precompilata
+ document.getElementById('mail')?.addEventListener('click', function(e){
+   // lasciando l’href mailto funziona anche senza JS
+   this.href = `mailto:scuderiasanrocco@gmail.com?subject=Prenotazione Scuderia San Rocco&body=${text()}`;
+ });
 })();
 </script>
 
